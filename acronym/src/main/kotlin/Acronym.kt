@@ -4,15 +4,7 @@ object Acronym {
 
     val separators = listOf(" ", "-")
     fun generate(phrase: String): String {
-        val res = phrase.split(" ","-")
-        println(res.joinToString("|"))
-
-        return phrase.split(" ","-")
-            .fold("") { acc, s ->
-                val res = s.filter { it.isLetter() }
-                if(res.isNotEmpty())
-                acc.plus(res.first().uppercase())
-                else acc
-            }
-    }
-}
+       return  phrase.split(" ","-")
+            .map { it.filter { it.isLetter() } }
+            .fold(""){acc, s-> acc.plus(s.firstOrNull().let { if(it!=null) it.uppercase() else "" })}
+}}
