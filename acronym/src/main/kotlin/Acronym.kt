@@ -6,5 +6,5 @@ object Acronym {
     fun generate(phrase: String): String {
        return  phrase.split(" ","-")
             .map { it.filter { it.isLetter() } }
-            .fold(""){acc, s-> acc.plus(s.firstOrNull().let { if(it!=null) it.uppercase() else "" })}
+            .fold(""){acc, s-> acc.plus(s.firstOrNull().let { it?.uppercase() ?: "" })}
 }}
