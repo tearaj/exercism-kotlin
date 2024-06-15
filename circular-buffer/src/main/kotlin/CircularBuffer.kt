@@ -14,12 +14,12 @@ class CircularBuffer<T>(val capacity:Int) {
 
     fun write(value: T) =
         if(buffer.size==capacity) throw BufferFullException() else
-        buffer.addLast(value)
+        buffer.add(value)
 
 
     fun overwrite(value: T) {
         if(buffer.size==capacity) buffer.removeFirst()
-        buffer.addLast(value)
+        buffer.add(value)
     }
 
     fun clear() = buffer.clear()
