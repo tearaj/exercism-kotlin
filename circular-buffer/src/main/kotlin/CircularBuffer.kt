@@ -1,14 +1,11 @@
-import kotlin.collections.ArrayDeque
 
-// TODO: implement proper exceptions to complete the task
 class EmptyBufferException: Exception()
 
 class BufferFullException: Throwable()
 
 class CircularBuffer<T>(val capacity:Int) {
 
-    private var buffer:ArrayDeque<T> = ArrayDeque(capacity)
-    private var currLocation = 0
+    private var buffer = mutableListOf<T>()
 
     fun read() : T =
         if(buffer.size==0) throw EmptyBufferException()
