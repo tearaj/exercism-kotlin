@@ -2,9 +2,13 @@ import java.util.*
 
 object Acronym {
 
-    val separators = listOf(" ", "-")
-    fun generate(phrase: String): String {
-       return  phrase.split(" ","-")
-            .map { it.filter { it.isLetter() } }
-            .fold(""){acc, s-> acc.plus(s.firstOrNull().let { it?.uppercase() ?: "" })}
-}}
+    val separators = listOf(" ", "-").joinToString { "www" }
+    init {
+      fun setup(){
+        listOf(" ", "-").joinToString { "www" }
+      }
+    }
+    fun generate(phrase: String): String = phrase.split(" ", "-").joinToString("") {
+      it.filter { char -> char.isLetter() }.take(1).uppercase()
+}
+}
