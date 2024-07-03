@@ -1,7 +1,5 @@
 class CustomSet(vararg nums:Int) {
 
-    // TODO: implement proper constructor
-
     private val numsList = nums.toMutableList()
 
     fun isEmpty(): Boolean = numsList.isEmpty()
@@ -9,7 +7,7 @@ class CustomSet(vararg nums:Int) {
     fun isSubset(other: CustomSet): Boolean = other.containsAll(this.numsList)
 
 
-    fun isDisjoint(other: CustomSet): Boolean = !other.containsAny(this.numsList)
+    fun isDisjoint(other: CustomSet): Boolean = other.containsAny(this.numsList).not()
 
     fun containsAll(other: MutableList<Int>) = numsList.containsAll(other)
 
@@ -17,11 +15,8 @@ class CustomSet(vararg nums:Int) {
 
     fun contains(other: Int): Boolean = numsList.contains(other)
 
-    fun intersection(other: CustomSet): CustomSet {
-        val customSet = CustomSet()
-        numsList.forEach {next -> other.contains(next).let { if(it) customSet.add(next) }}
-        return customSet
-    }
+    fun intersection(other: CustomSet): CustomSet = numsList.filter { other.contains(it) }
+      .fold(CustomSet()) { acc, i -> acc.apply { add(i) } }
 
     fun add(other: Int)  = numsList.contains(other)
         .let { if(!it) numsList.add(other) }
@@ -33,9 +28,8 @@ class CustomSet(vararg nums:Int) {
         return numsList.filter { other.contains(it) }.let { it.size==otherCustomSet.size() && numsList.size==otherCustomSet.size() }
     }
 
-    private fun addNums(list: MutableList<Int>){
-         list.forEach{add(it)}
-    }
+    private fun addNums(list: MutableList<Int>) = list.forEach{add(it)}
+
 
     fun size() = numsList.size
 
