@@ -21,12 +21,7 @@ class CustomSet(vararg nums:Int) {
     fun add(other: Int)  = numsList.contains(other)
         .let { if(!it) numsList.add(other) }
 
-    override fun equals(other: Any?): Boolean {
-        if(other==null) return false
-        if(other::class!=CustomSet::class) return false
-        val otherCustomSet = other as CustomSet
-        return numsList.filter { other.contains(it) }.let { it.size==otherCustomSet.size() && numsList.size==otherCustomSet.size() }
-    }
+    override fun equals(other: Any?): Boolean = other is CustomSet && numsList.size == other.size() && isSubset(other)
 
 
     fun size() = numsList.size
