@@ -28,20 +28,10 @@ class CustomSet(vararg nums:Int) {
         return numsList.filter { other.contains(it) }.let { it.size==otherCustomSet.size() && numsList.size==otherCustomSet.size() }
     }
 
-    private fun addNums(list: MutableList<Int>) = list.forEach{add(it)}
-
 
     fun size() = numsList.size
 
-    operator fun plus(other: CustomSet): CustomSet {
-        val res = CustomSet()
-        res.addNums(numsList)
-        numsList.filterNot { other.contains(it) }
-            .fold(res) { acc, i -> acc.apply { add(i) } }
-        other.numsList.filterNot { numsList.contains(it) }
-            .fold(res) { acc, i -> acc.apply { add(i) } }
-        return res
-    }
+    operator fun plus(other: CustomSet): CustomSet = (numsList+other.numsList).distinct().toIntArray().let { CustomSet(*it) }
 
     operator fun minus(other: CustomSet): CustomSet =
         numsList.filterNot { other.contains(it) }.fold(CustomSet()) { acc, num -> acc.apply { add(num) } }
